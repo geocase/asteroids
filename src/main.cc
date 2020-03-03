@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "game.h"
 #include "sector.h"
 #include "window.h"
 #include "input.h"
@@ -10,6 +11,8 @@ int main() {
 	srand(time(NULL));
 	cWindow primWin;
 	cInput primIn;
+	cGame primGame;
+
 	cVertex *points = new cVertex[NODES];
 	points[0].PlaceAt(primWin.winx / 2, primWin.winy / 2);
 	points[1].PlaceAt(primWin.winx / 2 + 100, primWin.winy / 2);
@@ -42,8 +45,7 @@ int main() {
 	col.b = 255;
 	col.a = 255;
 
-	for(int k = 0; k < 15000; k++) {
-		
+	while(primGame.running) {
 		primWin.DrawLine(segA->a->x, segA->a->y, segA->b->x, segA->b->y, col);
 		primWin.DrawLine(segB->a->x, segB->a->y, segB->b->x, segB->b->y, col);
 		primWin.DrawLine(segC->a->x, segC->a->y, segC->b->x, segC->b->y, col);
@@ -62,6 +64,7 @@ int main() {
 		*/
 		primWin.Update();
 		primIn.Update();
+		primGame.running = !primIn.windowExit;
 	}
 	std::cout << "linedefs: " << p.lineDefCount << std::endl;
 
