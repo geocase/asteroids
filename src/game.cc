@@ -5,6 +5,12 @@
 #include "sector.h"
 #define SHIP_SCALE 20
 
+
+void cEntity::Translate(double x, double y) {
+	this->xPos += x;
+	this->yPos += y;
+}
+
 cGame::cGame() {
 	// Build player
 	this->player.nodes = new cVertex[4];

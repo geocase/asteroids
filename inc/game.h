@@ -12,6 +12,7 @@ public:
 	cPolygon shape;
 	cVertex *nodes;
 	int32_t xPos, yPos;
+	void Translate(double x, double y);
 };
 
 class cGame {
