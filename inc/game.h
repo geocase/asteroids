@@ -1,23 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "entity.h"
 #include "input.h"
-#include "sector.h"
 
 class cGame;
-class cEntity;
-
-class cEntity {
-public:
-	cPolygon shape;
-	cVertex *nodes;
-	uint32_t nodeCount;
-
-	double xPos, yPos;
-	double angle;
-	void Rotate(const double r);
-	void Translate(double x, double y);
-};
 
 class cGame {
 public:
