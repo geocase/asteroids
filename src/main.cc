@@ -42,8 +42,9 @@ int main() {
 		primWin.Update();
 		primFPS.EndFrame();
 
-		primGame.player.Translate(100 * primFPS.GetFrameTime(), 0);
+		primGame.player.Rotate(1 * primFPS.GetFrameTime());
 		std::cout << primGame.player.xPos << ", " << primGame.player.yPos << std::endl;
+		std::cout << primGame.player.angle << std::endl;
 		primIn.Update();
 		primGame.Update(&primIn);
 
