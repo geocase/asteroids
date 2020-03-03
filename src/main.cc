@@ -21,16 +21,7 @@ int main() {
 	points[4].PlaceAt(primWin.winx / 2 + 100, primWin.winy / 2 - 5);
 	points[5].PlaceAt(0, 0);
 
-	/*
-	for(int l = 0; l < NODES; l++) {
-		points[l].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
-	}
-	*/
-	cPolygon quad;
-//	quad.BuildFromVertexArray(points, NODES);	
-
 	cPath p;
-	p.BuildFromVertexArray(points, NODES);	
 
 	cSegment *segA = new cSegment(&points[0], &points[1]);
 	cSegment *segB = new cSegment(&points[2], &points[3]);
@@ -55,18 +46,11 @@ int main() {
 		points[5] = segB->GetPointAt(.25);
 
 		points[1].Rotate(points[0].x, points[0].y, .001);
-		/*
-		for(int i = 0; i < p.lineDefCount; i++) {
-			tempA = *(p.lineDefs.at(i).a);
-			tempB = *(p.lineDefs.at(i).b);
-			primWin.DrawLine(tempA.x, tempA.y, tempB.x, tempB.y, col);
-		}
-		*/
+	
 		primWin.Update();
 		primIn.Update();
 		primGame.running = !primIn.windowExit;
 	}
-	std::cout << "linedefs: " << p.lineDefCount << std::endl;
 
 	return 0;
 }
