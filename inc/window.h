@@ -16,7 +16,7 @@ public:
 	SDL_Window *sdlwin;
 	SDL_Renderer *sdlren;
 	
-	uint32_t winx = 600, winy = 900;
+	uint32_t winx = 900, winy = 900;
 	std::string winTitle = "";
 
 	cWindow();
