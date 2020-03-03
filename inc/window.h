@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 
+#include "sector.h"
+
 typedef struct {
 	uint8_t r, g, b, a;
 } sColor_t;
@@ -23,6 +25,7 @@ public:
 	              sColor_t c);
 	void DrawLine(double ax, double ay, double bx, double by, 
 	              sColor_t c);
+	void DrawPolygon(cPolygon *p, sColor_t col);
 
 	void Update();
 };

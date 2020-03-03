@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
+#include "sector.h"
 #include "window.h"
 
 cWindow::cWindow() {
@@ -25,6 +26,16 @@ void cWindow::DrawLine(double ax, double ay, double bx, double by, sColor_t c) {
 	SDL_SetRenderDrawColor(this->sdlren, c.r, c.g, c.b, c.a);
 	
 	SDL_RenderDrawLine(this->sdlren, (int)ax, (int)ay, (int)bx, (int)by);
+}
+
+void cWindow::DrawPolygon(cPolygon *p, sColor_t col) {
+	cVertex tempA;
+	cVertex tempB;
+	for(int i = 0; i < p->faceCount; i++) {
+		tempA = *(p->faces.at(i).a);
+		tempB = *(p->faces.at(i).b);
+		this->DrawLine(tempA.x, tempA.y, tempB.x, tempB.y, col);
+	}
 }
 
 void cWindow::Update() {
