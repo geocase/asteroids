@@ -3,7 +3,7 @@
 #include "game.h"
 #include "input.h"
 #include "sector.h"
-#define SHIP_SCALE 30
+#define SHIP_SCALE 20
 
 cGame::cGame() {
 	// Build player
