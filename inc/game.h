@@ -13,7 +13,7 @@ public:
 	cVertex *nodes;
 	uint32_t nodeCount;
 
-	int32_t xPos, yPos;
+	double xPos, yPos;
 	void Translate(double x, double y);
 };
 
