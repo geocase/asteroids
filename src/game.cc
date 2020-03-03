@@ -9,11 +9,13 @@
 void cEntity::Translate(double x, double y) {
 	this->xPos += x;
 	this->yPos += y;
+
 }
 
 cGame::cGame() {
-	// Build player
-	this->player.nodes = new cVertex[4];
+	// Build player	
+	this->player.nodeCount = 4;
+	this->player.nodes = new cVertex[this->player.nodeCount];
 	this->player.xPos = 160;
 	this->player.yPos = 100;
 

@@ -11,6 +11,8 @@ class cEntity {
 public:
 	cPolygon shape;
 	cVertex *nodes;
+	uint32_t nodeCount;
+
 	int32_t xPos, yPos;
 	void Translate(double x, double y);
 };
