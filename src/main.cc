@@ -33,12 +33,7 @@ int main() {
 	col.a = 255;
 
 	while(primGame.running) {
-		for(int i = 0; i < primGame.player.shape.faceCount; i++) {
-			tempA = *(primGame.player.shape.faces.at(i).a);
-			tempB = *(primGame.player.shape.faces.at(i).b);
-			primWin.DrawLine(tempA.x, tempA.y, tempB.x, tempB.y, col);
-		}		
-		std::cout << primGame.player.shape.faceCount << std::endl;	
+		primWin.DrawPolygon(&(primGame.player.shape), col);
 
 		primIn.Update();
 		primGame.Update(&primIn);
