@@ -39,11 +39,15 @@ int main() {
 	while(primGame.running) {
 		primFPS.StartFrame();
 		primWin.DrawPolygon(&(primGame.player.shape), col);
-
-		primIn.Update();
-		primGame.Update(&primIn);
 		primWin.Update();
 		primFPS.EndFrame();
+
+		primGame.player.Translate(100 * primFPS.GetFrameTime(), 0);
+		std::cout << primGame.player.xPos << ", " << primGame.player.yPos << std::endl;
+		primIn.Update();
+		primGame.Update(&primIn);
+
+		std::cout << primFPS.GetFrameTime() << std::endl;
 	}
 
 	return 0;
