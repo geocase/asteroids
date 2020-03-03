@@ -9,20 +9,6 @@
 
 cGame::cGame() {
 	// Build player	
-	this->player.nodeCount = 4;
-	this->player.nodes = new cVertex[this->player.nodeCount];
-	this->player.xPos = 160;
-	this->player.yPos = 100;
-	this->player.angle = 0;
-
-	this->player.nodes[0].PlaceAt(this->player.xPos + SHIP_SCALE, this->player.yPos);
-	this->player.nodes[1].PlaceAt(this->player.xPos + SHIP_SCALE, this->player.yPos);
-	this->player.nodes[1].Rotate(this->player.xPos, this->player.yPos, 2.35619);
-	this->player.nodes[2].PlaceAt(this->player.xPos - SHIP_SCALE / 2, this->player.yPos);
-	this->player.nodes[3].PlaceAt(this->player.xPos + SHIP_SCALE, this->player.yPos);
-	this->player.nodes[3].Rotate(this->player.xPos, this->player.yPos, -2.35619);
-
-	this->player.shape.BuildFromVertexArray(this->player.nodes, 4);
 }
 
 void cGame::Update(cInput *i) {

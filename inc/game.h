@@ -8,7 +8,7 @@ class cGame;
 
 class cGame {
 public:
-	cEntity player;
+	cEntityPlayer player;
 
 	bool running = true;
 

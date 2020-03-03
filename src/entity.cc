@@ -18,3 +18,20 @@ void cEntity::Translate(double x, double y) {
 		this->nodes[i].y += y;		
 	}
 }
+
+cEntityPlayer::cEntityPlayer() {
+	this->nodeCount = 4;
+	this->nodes = new cVertex[this->nodeCount];
+	this->xPos = 160;
+	this->yPos = 100;
+	this->angle = 0;
+
+	this->nodes[0].PlaceAt(this->xPos + this->shipScale, this->yPos);
+	this->nodes[1].PlaceAt(this->xPos + this->shipScale, this->yPos);
+	this->nodes[1].Rotate(this->xPos, this->yPos, 2.35619);
+	this->nodes[2].PlaceAt(this->xPos - this->shipScale / 2, this->yPos);
+	this->nodes[3].PlaceAt(this->xPos + this->shipScale, this->yPos);
+	this->nodes[3].Rotate(this->xPos, this->yPos, -2.35619);
+
+	this->shape.BuildFromVertexArray(this->nodes, 4);
+}
