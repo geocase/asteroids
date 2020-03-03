@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "fps.h"
 #include "game.h"
 #include "sector.h"
 #include "window.h"
@@ -32,12 +33,17 @@ int main() {
 	col.b = 255;
 	col.a = 255;
 
+	cFPS primFPS;
+	primFPS.StartFPSCounter();
+
 	while(primGame.running) {
+		primFPS.StartFrame();
 		primWin.DrawPolygon(&(primGame.player.shape), col);
 
 		primIn.Update();
 		primGame.Update(&primIn);
 		primWin.Update();
+		primFPS.EndFrame();
 	}
 
 	return 0;
