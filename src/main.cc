@@ -47,9 +47,9 @@ int main() {
 
 		points[1].Rotate(points[0].x, points[0].y, .001);
 	
-		primWin.Update();
 		primIn.Update();
-		primGame.running = !primIn.windowExit;
+		primGame.Update(&primIn);
+		primWin.Update();
 	}
 
 	return 0;
