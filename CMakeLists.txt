@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(manipoly)
+project(as)
 include_directories(inc)
 find_package(SDL2 REQUIRED)
 file(GLOB SOURCES src/*.cc)
 
 
-add_executable(manipoly ${SOURCES})
+add_executable(as ${SOURCES})
 
-target_compile_options(manipoly PRIVATE -std=c++17 -g -O2 -Wpedantic -Wall)
+target_compile_options(as PRIVATE -std=c++17 -g -O2 -Wpedantic -Wall)
 INCLUDE(FindPkgConfig)
 PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 PKG_SEARCH_MODULE(SDL2IMAGE REQUIRED SDL2_image>=2.0.0)
