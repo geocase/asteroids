@@ -8,6 +8,7 @@ public:
 	int32_t mouseX, mouseY;
 
 	void Update();
+	void UpdateMouse();
 };
 
 #endif
