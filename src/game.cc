@@ -5,14 +5,19 @@
 #include "sector.h"
 #define SHIP_SCALE 20
 
+void cEntity::Rotate(const double r) {
+	this->angle += r;
+	for(int i = 0; i < this->nodeCount; i++) {
+		this->nodes[i].Rotate(this->xPos, this->yPos, r);
+	}
+}
 
 void cEntity::Translate(double x, double y) {
 	this->xPos += x;
 	this->yPos += y;
 	for(int i = 0; i < this->nodeCount; i++) {
 		this->nodes[i].x += x;
-		this->nodes[i].y += y;
-		
+		this->nodes[i].y += y;		
 	}
 }
 
@@ -22,6 +27,7 @@ cGame::cGame() {
 	this->player.nodes = new cVertex[this->player.nodeCount];
 	this->player.xPos = 160;
 	this->player.yPos = 100;
+	this->player.angle = 0;
 
 	this->player.nodes[0].PlaceAt(this->player.xPos + SHIP_SCALE, this->player.yPos);
 	this->player.nodes[1].PlaceAt(this->player.xPos + SHIP_SCALE, this->player.yPos);

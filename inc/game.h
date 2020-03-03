@@ -14,6 +14,8 @@ public:
 	uint32_t nodeCount;
 
 	double xPos, yPos;
+	double angle;
+	void Rotate(const double r);
 	void Translate(double x, double y);
 };
 
