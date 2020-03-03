@@ -6,9 +6,12 @@ class cInput;
 class cInput {
 public:
 	int32_t mouseX, mouseY;
+	bool windowExit = false;
+	
 
 	void Update();
 	void UpdateMouse();
+	void WindowEvents();
 };
 
 #endif
