@@ -23,10 +23,6 @@ int main() {
 
 	cPath p;
 
-	cSegment *segA = new cSegment(&points[0], &points[1]);
-	cSegment *segB = new cSegment(&points[2], &points[3]);
-	cSegment *segC = new cSegment(&points[4], &points[5]);
-
 	cVertex tempA;
 	cVertex tempB;
 
@@ -37,16 +33,13 @@ int main() {
 	col.a = 255;
 
 	while(primGame.running) {
-		primWin.DrawLine(segA->a->x, segA->a->y, segA->b->x, segA->b->y, col);
-		primWin.DrawLine(segB->a->x, segB->a->y, segB->b->x, segB->b->y, col);
-		primWin.DrawLine(segC->a->x, segC->a->y, segC->b->x, segC->b->y, col);
+		for(int i = 0; i < primGame.player.shape.faceCount; i++) {
+			tempA = *(primGame.player.shape.faces.at(i).a);
+			tempB = *(primGame.player.shape.faces.at(i).b);
+			primWin.DrawLine(tempA.x, tempA.y, tempB.x, tempB.y, col);
+		}		
+		std::cout << primGame.player.shape.faceCount << std::endl;	
 
-		points[3] = segA->GetPointAt(.1);
-
-		points[5] = segB->GetPointAt(.25);
-
-		points[1].Rotate(points[0].x, points[0].y, .001);
-	
 		primIn.Update();
 		primGame.Update(&primIn);
 		primWin.Update();
