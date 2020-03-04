@@ -37,13 +37,22 @@ int main() {
 	col.b = 255;
 	col.a = 255;
 
+	sColor_t red;
+	red.r = 255;
+	red.g = 0;
+	red.b = 0;
+	red.a = 255;
+
 	cFPS primFPS;
 	primFPS.StartFPSCounter();
 
+	cEntityAsteroid *ast = new cEntityAsteroid;
+
 	primGame.player.PlaceAt(200, 200);
+	
 	while(primGame.running) {
 		primFPS.StartFrame();
-		primWin.DrawPolygon(test, col);
+		primWin.DrawPolygon(&(ast->shape), col);
 		primWin.DrawLine(mouse[0].x, mouse[0].y, mouse[1].x, mouse[1].y, col);
 		primWin.Update();
 		primFPS.EndFrame();
@@ -53,7 +62,8 @@ int main() {
 		primGame.Update(&primIn);
 		mouse[1].x = primIn.mouseX;
 		mouse[1].y = primIn.mouseY;
-		std::cout << "INPOLYGON: " << mouse[1].InPolygon(test) << std::endl;
+		std::cout << "INPOLYGON: " << mouse[1].InPolygon(&(ast->shape), &primWin) << std::endl;
+		std::cout << mouse[1].x << ", " << mouse[1].y << std::endl;
 	}
 
 	return 0;

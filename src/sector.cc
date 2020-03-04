@@ -3,6 +3,8 @@
 #include "sector.h"
 #include "misc.h"
 
+#include "window.h"
+
 void cVertex::Rotate(const double ax, const double ay, const double r) {
 	double nx = (this->x - ax) * std::cos(r) - (this->y - ay) * std::sin(r);
 	double ny = (this->y - ay) * std::cos(r) + (this->x - ax) * std::sin(r);
@@ -15,7 +17,7 @@ void cVertex::PlaceAt(const double nx, const double ny) {
 	this->y = ny;
 }
 
-bool cVertex::InPolygon(cPolygon *p) {
+bool cVertex::InPolygon(cPolygon *p, cWindow *w) {
 	double yMin = p->faces.at(0).a->y, yMax = p->faces.at(0).a->y;
 	double xMin = p->faces.at(0).a->x, xMax = p->faces.at(0).a->x;
 	for(int i = 0; i < p->faceCount; i++) {
@@ -30,18 +32,34 @@ bool cVertex::InPolygon(cPolygon *p) {
 	}
 
 	cVertex *endPoint = new cVertex;
-	endPoint->PlaceAt(xMax + 1, this->y);
+	endPoint->PlaceAt(xMax, this->y);
 	cSegment *testLine = new cSegment(this, endPoint);
 	uint32_t colliderCount = 0;
 	cVertex collisionPoint;
-	
+
+	sColor_t red;
+	red.r = 255;
+	red.b = 0;
+	red.g = 0;
+	red.a = 255;
+
+
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
-		if(collisionPoint.x > this->x && collisionPoint.y == this->y) {	
-			if(!(collisionPoint.x < xMin || collisionPoint.x > xMax || collisionPoint.y < yMin || collisionPoint.y > yMax)) {
+		std::cout << this->x << ", " << this->y << ":" << endPoint->x << ", " << endPoint->y << std::endl;
+		if(p->faces.at(i).a->y < collisionPoint.y && p->faces.at(i).b->y > collisionPoint.y ||
+		   p->faces.at(i).a->y > collisionPoint.y && p->faces.at(i).b->y < collisionPoint.y) {
+		if(this->x <= collisionPoint.x && collisionPoint.x <= endPoint->x) {
+			if(this->y <= collisionPoint.y && collisionPoint.y <= endPoint->y) {
 				std::cout << "COLLISIONPOINT #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
+				w->DrawLine(collisionPoint.x, collisionPoint.y, this->x, this->y, red);
 				colliderCount++;
+			} else {
+				std::cout << "NONCOLLIDER Y #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
 			}
+		} else {
+			std::cout << "NONCOLLIDER X #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
+		}
 		}
 	}
 	std::cout << "COLLISIONS: " << colliderCount << std::endl;
