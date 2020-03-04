@@ -17,7 +17,7 @@ void cVertex::PlaceAt(const double nx, const double ny) {
 	this->y = ny;
 }
 
-bool cVertex::InPolygon(cPolygon *p, cWindow *w) {
+bool cVertex::InPolygon(cPolygon *p) {
 	double yMin = p->faces.at(0).a->y, yMax = p->faces.at(0).a->y;
 	double xMin = p->faces.at(0).a->x, xMax = p->faces.at(0).a->x;
 	for(int i = 0; i < p->faceCount; i++) {
@@ -31,12 +31,6 @@ bool cVertex::InPolygon(cPolygon *p, cWindow *w) {
 		return false;
 	}
 
-	sColor_t red;
-	red.r = 255;
-	red.b = 0;
-	red.g = 0;
-	red.a = 255;
-
 	cVertex *endPoint = new cVertex;
 	endPoint->PlaceAt(xMax, this->y);
 	cSegment *testLine = new cSegment(this, endPoint);
@@ -45,22 +39,15 @@ bool cVertex::InPolygon(cPolygon *p, cWindow *w) {
 
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
-		std::cout << "\t" << this->x << ", " << this->y << ":" << endPoint->x << ", " << endPoint->y << std::endl;
 		if((p->faces.at(i).a->y >= p->faces.at(i).b->y &&
 		   collisionPoint.y >= p->faces.at(i).b->y && collisionPoint.y <= p->faces.at(i).a->y) ||
 		   (p->faces.at(i).a->y <= p->faces.at(i).b->y && 
 		   collisionPoint.y <= p->faces.at(i).b->y && collisionPoint.y >= p->faces.at(i).a->y)) {
 	   		if(this->x <= collisionPoint.x) {
-				w->DrawLine(450, 100, collisionPoint.x, collisionPoint.y, red);
-				w->DrawLine(this->x, this->y, collisionPoint.x, collisionPoint.y, red);
 				colliderCount++;
-				std::cout << "COLLIDER ";
 			}
 		}
-		std::cout << "#" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl <<
-		"LineHeight: " << p->faces.at(i).b->y << ", " << p->faces.at(i).a->y << std::endl;
 	}
-	std::cout << "COLLISIONS: " << colliderCount << std::endl;
 	return !(colliderCount % 2 == 0);
 }
 

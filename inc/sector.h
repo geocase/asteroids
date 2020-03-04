@@ -17,7 +17,7 @@ public:
 	
 	void Rotate(const double ax, const double ay, const double r);
 	void PlaceAt(const double nx, const double ny);
-	bool InPolygon(cPolygon *p, cWindow *w);	
+	bool InPolygon(cPolygon *p);	
 };
 
 class cSegment {
