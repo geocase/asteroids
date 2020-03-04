@@ -26,8 +26,6 @@ bool cVertex::InPolygon(cPolygon *p) {
 		if(p->faces.at(i).a->y > yMax) { yMax = p->faces.at(i).a->y;}
 	}
 
-	printf("xMin %lf, xMax %lf\nyMin %lf, yMax %lf\n", xMin, xMax, yMin, yMax);
-	printf("this->x %lf, this-y %lf\n", this->x, this->y);
 	if(this->x < xMin || this->x > xMax || this->y < yMin || this->y > yMax) {
 		return false;
 	}
