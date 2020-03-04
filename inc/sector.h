@@ -7,8 +7,6 @@ class cVertex;
 class cSegment;
 class cPolygon;
 
-#include "window.h"
-
 class cPath;
 
 class cVertex {
@@ -17,7 +15,7 @@ public:
 	
 	void Rotate(const double ax, const double ay, const double r);
 	void PlaceAt(const double nx, const double ny);
-	bool InPolygon(cPolygon *p, cWindow *c);	
+	bool InPolygon(cPolygon *p);	
 };
 
 class cSegment {

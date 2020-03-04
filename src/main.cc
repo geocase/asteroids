@@ -55,7 +55,7 @@ int main() {
 		mouse[1].y = primIn.mouseY;
 		std::cout << "INTERSECT: " << mouseLine->GetIntersection(testLine).x <<", " 
 		<< mouseLine->GetIntersection(testLine).y << std::endl;
-		std::cout << "INPOLYGON: " << mouse[1].InPolygon(test, &primWin) << std::endl;
+		std::cout << "INPOLYGON: " << mouse[1].InPolygon(test) << std::endl;
 	}
 
 	return 0;
