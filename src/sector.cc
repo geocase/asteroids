@@ -14,6 +14,23 @@ void cVertex::PlaceAt(const double nx, const double ny) {
 	this->y = ny;
 }
 
+bool cVertex::InPolygon(cPolygon *p) {
+	double yMin = p->faces.at(0).a->y, yMax = p->faces.at(0).a->y;
+	double xMin = p->faces.at(0).a->x, xMax = p->faces.at(0).a->x;
+	for(int i = 0; i < p->faceCount; i++) {
+		if(p->faces.at(i).a->x < xMin) { xMin = p->faces.at(i).a->x;}
+		if(p->faces.at(i).a->x > xMax) { xMax = p->faces.at(i).a->x;}
+		if(p->faces.at(i).a->y < yMin) { yMin = p->faces.at(i).a->y;}
+		if(p->faces.at(i).a->y > yMax) { yMax = p->faces.at(i).a->y;}
+	}
+
+	printf("xMin %lf, xMax %lf\nyMin %lf, yMax %lf\n", xMin, xMax, yMin, yMax);
+	printf("this->x %lf, this-y %lf\n", this->x, this->y);
+	if(this->x < xMin || this->x > xMax || this->y < yMin || this->y > yMax) {
+		return false;
+	}
+}
+
 cSegment::cSegment(double ax, double ay, double bx, double by) {
 	this->a->x = ax;
 	this->a->y = ay;

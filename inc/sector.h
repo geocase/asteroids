@@ -15,9 +15,12 @@ public:
 	
 	void Rotate(const double ax, const double ay, const double r);
 	void PlaceAt(const double nx, const double ny);
+	bool InPolygon(cPolygon *p);	
 };
 
 class cSegment {
+private:
+	bool IntersectingBoundingBoxes(cSegment *c);
 public:
 	cVertex *a, *b;
 
