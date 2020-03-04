@@ -28,6 +28,11 @@ void cWindow::DrawLine(double ax, double ay, double bx, double by, sColor_t c) {
 	SDL_RenderDrawLine(this->sdlren, (int)ax, (int)ay, (int)bx, (int)by);
 }
 
+void cWindow::DrawPixel(int x, int y, sColor_t c) {
+	SDL_SetRenderDrawColor(this->sdlren, c.r, c.g, c.b, c.a);
+	SDL_RenderDrawPoint(this->sdlren, x, y);
+}
+
 void cWindow::DrawPolygon(cPolygon *p, sColor_t col) {
 	cVertex tempA;
 	cVertex tempB;
