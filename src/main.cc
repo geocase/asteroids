@@ -42,7 +42,7 @@ int main() {
 		aster[i].Translate((rand() % primWin.winx) - 100, (rand() % primWin.winy) - 100);
 	}
 
-
+	primGame.player.PlaceAt(200, 200);
 	while(primGame.running) {
 		primFPS.StartFrame();
 		primWin.DrawPolygon(&(primGame.player.shape), col);
@@ -59,7 +59,7 @@ int main() {
 		}
 
 		std::cout << primGame.player.xPos << ", " << primGame.player.yPos << std::endl;
-		std::cout << primGame.player.angle << std::endl;
+		std::cout << "NODE0: " <<  primGame.player.nodes[0].x << ", " << primGame.player.nodes[0].y << std::endl;
 		primIn.Update();
 		primGame.Update(&primIn);
 
