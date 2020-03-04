@@ -3,6 +3,7 @@
 #include "sector.h"
 #include "misc.h"
 
+#include "window.h" // for testing
 
 void cVertex::Rotate(const double ax, const double ay, const double r) {
 	double nx = (this->x - ax) * std::cos(r) - (this->y - ay) * std::sin(r);
@@ -16,7 +17,7 @@ void cVertex::PlaceAt(const double nx, const double ny) {
 	this->y = ny;
 }
 
-bool cVertex::InPolygon(cPolygon *p) {
+bool cVertex::InPolygon(cPolygon *p, cWindow *c) {
 	double yMin = p->faces.at(0).a->y, yMax = p->faces.at(0).a->y;
 	double xMin = p->faces.at(0).a->x, xMax = p->faces.at(0).a->x;
 	for(int i = 0; i < p->faceCount; i++) {
@@ -29,6 +30,32 @@ bool cVertex::InPolygon(cPolygon *p) {
 	if(this->x < xMin || this->x > xMax || this->y < yMin || this->y > yMax) {
 		return false;
 	}
+
+	cVertex *endPoint = new cVertex;
+	endPoint->PlaceAt(xMax + 1, this->y);
+	cSegment *testLine = new cSegment(this, endPoint);
+	uint32_t colliderCount = 0;
+	cVertex collisionPoint;
+	
+	sColor_t col;
+	col.r = 120;
+	col.g = 120;
+	col.b = 120;
+	col.a = 255;
+
+	c->DrawLine(testLine->a->x, testLine->a->y, testLine->b->x, testLine->b->y, col);
+
+	for(int i = 0; i < p->faceCount; i++) {
+		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
+		if(collisionPoint.x > this->x && collisionPoint.y == this->y) {	
+			if(!(collisionPoint.x < xMin || collisionPoint.x > xMax || collisionPoint.y < yMin || collisionPoint.y > yMax)) {
+				std::cout << "COLLISIONPOINT #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
+				colliderCount++;
+			}
+		}
+	}
+	std::cout << "COLLISIONS: " << colliderCount << std::endl;
+	return !(colliderCount % 2 == 0);
 }
 
 cSegment::cSegment(double ax, double ay, double bx, double by) {
