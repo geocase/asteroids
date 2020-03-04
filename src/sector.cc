@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cmath>
 #include "sector.h"
+#include "misc.h"
+
 
 void cVertex::Rotate(const double ax, const double ay, const double r) {
 	double nx = (this->x - ax) * std::cos(r) - (this->y - ay) * std::sin(r);
@@ -49,6 +51,24 @@ cVertex cSegment::GetPointAt(double ratio) {
 	temp.y = (this->a->y - this->b->y) * ratio + this->b->y;
 
 	return temp;
+}
+
+cVertex cSegment::GetIntersection(cSegment *s) {
+	cMiscMath m;
+	cVertex t;
+	double x1 = this->a->x, y1 = this->a->y;
+	double x2 = this->b->x, y2 = this->b->y;
+	double x3 = s->a->x, y3 = s->a->y;
+	double x4 = s->b->x, y4 = s->b->y;
+	t.x = m.Determination(m.Determination(x1, y1, x2, y2), m.Determination(x1, 1, x2, 1), 
+	                      m.Determination(x3, y3, x4, y4), m.Determination(x3, 1, x4, 1)) / 
+	      m.Determination(m.Determination(x1, 1, x2, 1), m.Determination(y1, 1, y2, 1),
+	                      m.Determination(x3, 1, x4, 1), m.Determination(y3, 1, y4, 1));
+	t.y = m.Determination(m.Determination(x1, y1, x2, y2), m.Determination(y1, 1, y2, 1),
+	                      m.Determination(x3, y3, x4, y4), m.Determination(y3, 1, y4, 1)) /
+	      m.Determination(m.Determination(x1, 1, x2, 1), m.Determination(y1, 1, y2, 1),
+	                      m.Determination(x3, 1, x4, 1), m.Determination(y3, 1, y4, 1));
+	return t;
 }
 
 void cPolygon::AddFace(const cSegment *l) {

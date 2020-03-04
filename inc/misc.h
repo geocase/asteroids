@@ -8,6 +8,6 @@ public:
 	double Determination(double a, double b, double c, double d) {
 		return (a * d) - (b * c);
 	};
-}
+};
 
 #endif

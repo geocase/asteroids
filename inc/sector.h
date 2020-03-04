@@ -19,8 +19,6 @@ public:
 };
 
 class cSegment {
-private:
-	bool IntersectingBoundingBoxes(cSegment *c);
 public:
 	cVertex *a, *b;
 
@@ -28,6 +26,7 @@ public:
 	cSegment(cVertex *na, cVertex *nb);
 
 	cVertex GetPointAt(double ratio);
+	cVertex GetIntersection(cSegment *s);
 };
 
 class cPolygon  {
