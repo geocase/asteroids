@@ -46,26 +46,36 @@ int main() {
 	cFPS primFPS;
 	primFPS.StartFPSCounter();
 
-	cEntityAsteroid *ast = new cEntityAsteroid;
-
+	cEntityAsteroid *ast = new cEntityAsteroid[10];
+	for(int i = 0; i < 10; i++) {
+		ast[i].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
+	}
 	primGame.player.PlaceAt(200, 200);
 	
 	while(primGame.running) {
 		primFPS.StartFrame();
-		primWin.DrawPolygon(&(ast->shape), col);
+		for(int i = 0; i < 10; i++) {
+			if(mouse[1].InPolygon(&(ast[i].shape))) {
+				primWin.DrawPolygon(&(ast[i].shape), red);
+			} else {
+				primWin.DrawPolygon(&(ast[i].shape), col);
+			}
+		}
 		primWin.DrawLine(mouse[0].x, mouse[0].y, mouse[1].x, mouse[1].y, col);
 		primWin.Update();
 		primFPS.EndFrame();
 
-		ast->Rotate(1 * primFPS.GetFrameTime());
+		for(int i = 0; i < 10; i++) {
+			ast[i].Rotate(1 * primFPS.GetFrameTime());
+		}
 
 
 		primIn.Update();
 		primGame.Update(&primIn);
 		mouse[1].x = primIn.mouseX;
 		mouse[1].y = primIn.mouseY;
-		std::cout << "INPOLYGON: " << mouse[1].InPolygon(&(ast->shape)) << std::endl;
 		std::cout << mouse[1].x << ", " << mouse[1].y << std::endl;
+		std::cout << "Frametime: " << primFPS.GetFrameTime() << std::endl;
 	}
 
 	return 0;
