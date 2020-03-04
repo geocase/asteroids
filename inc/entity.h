@@ -15,6 +15,7 @@ public:
 
 	double xPos, yPos;
 	double angle;
+	void PlaceAt(const double x, const double y);
 	void Rotate(const double r);
 	void Translate(double x, double y);
 };

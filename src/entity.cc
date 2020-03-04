@@ -3,6 +3,21 @@
 #include "entity.h"
 #include "sector.h"
 
+void cEntity::PlaceAt(const double x, const double y) {	
+	double yDiff = 0;
+	double xDiff = 0;
+	for(int i = 0; i < this->nodeCount; i++) {
+		yDiff = this->nodes[i].y - this->yPos;
+		xDiff = this->nodes[i].x - this->xPos;
+		this->nodes[i].x = (x + xDiff);
+		this->nodes[i].y = (y + yDiff);
+	}
+
+	this->xPos = x;
+	this->yPos = y;
+
+}
+
 void cEntity::Rotate(const double r) {
 	this->angle += r;
 	for(int i = 0; i < this->nodeCount; i++) {
