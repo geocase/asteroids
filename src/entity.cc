@@ -35,3 +35,11 @@ cEntityPlayer::cEntityPlayer() {
 
 	this->shape.BuildFromVertexArray(this->nodes, 4);
 }
+
+cEntityAsteroid::cEntityAsteroid() {
+	this->GenerateRandom(10, 5);
+}
+
+void cEntityAsteroid::GenerateRandom(uint32_t min, uint32_t max) {
+
+}
