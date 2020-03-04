@@ -36,17 +36,28 @@ int main() {
 	cFPS primFPS;
 	primFPS.StartFPSCounter();
 
-	cEntityAsteroid tA;
+	cEntityAsteroid *aster = new cEntityAsteroid[10];
+	
+	for(int i = 0; i < 10; i++) {
+		aster[i].Translate((rand() % primWin.winx) - 100, (rand() % primWin.winy) - 100);
+	}
+
 
 	while(primGame.running) {
 		primFPS.StartFrame();
 		primWin.DrawPolygon(&(primGame.player.shape), col);
-		primWin.DrawPolygon(&(tA.shape), col);
+		for(int i = 0; i < 10; i++) {
+			primWin.DrawPolygon(&(aster[i].shape), col);
+		}
 		primWin.Update();
 		primFPS.EndFrame();
 
 		primGame.player.Rotate(1 * primFPS.GetFrameTime());
-		tA.Rotate(1 * primFPS.GetFrameTime());
+
+		for(int i = 0; i < 10; i++) {
+			aster[i].Rotate(3 * primFPS.GetFrameTime());
+		}
+
 		std::cout << primGame.player.xPos << ", " << primGame.player.yPos << std::endl;
 		std::cout << primGame.player.angle << std::endl;
 		primIn.Update();
