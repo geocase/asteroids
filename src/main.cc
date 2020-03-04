@@ -36,13 +36,17 @@ int main() {
 	cFPS primFPS;
 	primFPS.StartFPSCounter();
 
+	cEntityAsteroid tA;
+
 	while(primGame.running) {
 		primFPS.StartFrame();
 		primWin.DrawPolygon(&(primGame.player.shape), col);
+		primWin.DrawPolygon(&(tA.shape), col);
 		primWin.Update();
 		primFPS.EndFrame();
 
 		primGame.player.Rotate(1 * primFPS.GetFrameTime());
+		tA.Rotate(1 * primFPS.GetFrameTime());
 		std::cout << primGame.player.xPos << ", " << primGame.player.yPos << std::endl;
 		std::cout << primGame.player.angle << std::endl;
 		primIn.Update();
