@@ -9,8 +9,7 @@ void cEntity::PlaceAt(const double x, const double y) {
 	for(int i = 0; i < this->nodeCount; i++) {
 		yDiff = this->nodes[i].y - this->yPos;
 		xDiff = this->nodes[i].x - this->xPos;
-		this->nodes[i].x = (x + xDiff);
-		this->nodes[i].y = (y + yDiff);
+		this->nodes[i].PlaceAt(x + xDiff, y + yDiff);
 	}
 
 	this->xPos = x;
