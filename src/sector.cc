@@ -47,8 +47,10 @@ bool cVertex::InPolygon(cPolygon *p, cWindow *w) {
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
 		std::cout << this->x << ", " << this->y << ":" << endPoint->x << ", " << endPoint->y << std::endl;
-		if(p->faces.at(i).a->y < collisionPoint.y && p->faces.at(i).b->y > collisionPoint.y ||
-		   p->faces.at(i).a->y > collisionPoint.y && p->faces.at(i).b->y < collisionPoint.y) {
+		if(p->faces.at(i).b->y > p->faces.at(i).a->y && 
+		   p->faces.at(i).a->y <= collisionPoint.y && p->faces.at(i).b->y >= collisionPoint.y ||
+		   p->faces.at(i).b->y < p->faces.at(i).a->y && 
+		   p->faces.at(i).a->y >= collisionPoint.y && p->faces.at(i).b->y <= collisionPoint.y) {
 			if(this->x <= collisionPoint.x && collisionPoint.x <= endPoint->x) {
 				if(this->y <= collisionPoint.y && collisionPoint.y <= endPoint->y) {
 					std::cout << "COLLISIONPOINT #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
