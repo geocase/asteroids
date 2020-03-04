@@ -28,6 +28,6 @@ public:
 class cEntityAsteroid : public cEntity {
 public:
 	cEntityAsteroid();
-	void GenerateRandom(uint32_t min, uint32_t max);
+	void GenerateRandomShape(uint32_t min, uint32_t max);
 };
 #endif

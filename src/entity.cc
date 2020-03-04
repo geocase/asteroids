@@ -40,6 +40,13 @@ cEntityAsteroid::cEntityAsteroid() {
 	this->GenerateRandom(10, 5);
 }
 
-void cEntityAsteroid::GenerateRandom(uint32_t min, uint32_t max) {
+void cEntityAsteroid::GenerateRandomShape(uint32_t min, uint32_t max) {
+	this->nodeCount = 10;
+	this->nodes = new cVertex[nodeCount];
 
+	for(int i = 0; i < nodeCount; i++) {
+		this->nodes[i].PlaceAt(this->xPos + (min + rand() % max), yPos);
+		this->nodes[i].Rotate(this->xPos, this->yPos, .62831853071 * i);
+	}
+	this->shape.BuildFromVertexArray(this->nodes, this->nodeCount);
 }
