@@ -31,38 +31,34 @@ bool cVertex::InPolygon(cPolygon *p, cWindow *w) {
 		return false;
 	}
 
-	cVertex *endPoint = new cVertex;
-	endPoint->PlaceAt(xMax, this->y);
-	cSegment *testLine = new cSegment(this, endPoint);
-	uint32_t colliderCount = 0;
-	cVertex collisionPoint;
-
 	sColor_t red;
 	red.r = 255;
 	red.b = 0;
 	red.g = 0;
 	red.a = 255;
 
+	cVertex *endPoint = new cVertex;
+	endPoint->PlaceAt(xMax, this->y);
+	cSegment *testLine = new cSegment(this, endPoint);
+	uint32_t colliderCount = 0;
+	cVertex collisionPoint;
 
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
-		std::cout << this->x << ", " << this->y << ":" << endPoint->x << ", " << endPoint->y << std::endl;
-		if(p->faces.at(i).b->y > p->faces.at(i).a->y && 
-		   p->faces.at(i).a->y <= collisionPoint.y && p->faces.at(i).b->y >= collisionPoint.y ||
-		   p->faces.at(i).b->y < p->faces.at(i).a->y && 
-		   p->faces.at(i).a->y >= collisionPoint.y && p->faces.at(i).b->y <= collisionPoint.y) {
-			if(this->x <= collisionPoint.x && collisionPoint.x <= endPoint->x) {
-				if(this->y <= collisionPoint.y && collisionPoint.y <= endPoint->y) {
-					std::cout << "COLLISIONPOINT #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
-					w->DrawLine(collisionPoint.x, collisionPoint.y, this->x, this->y, red);
-					colliderCount++;
-				} else {
-					std::cout << "NONCOLLIDER Y #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
-				}
-			} else {
-				std::cout << "NONCOLLIDER X #" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl;
+		std::cout << "\t" << this->x << ", " << this->y << ":" << endPoint->x << ", " << endPoint->y << std::endl;
+		if((p->faces.at(i).a->y >= p->faces.at(i).b->y &&
+		   collisionPoint.y >= p->faces.at(i).b->y && collisionPoint.y <= p->faces.at(i).a->y) ||
+		   (p->faces.at(i).a->y <= p->faces.at(i).b->y && 
+		   collisionPoint.y <= p->faces.at(i).b->y && collisionPoint.y >= p->faces.at(i).a->y)) {
+	   		if(this->x <= collisionPoint.x) {
+				w->DrawLine(450, 100, collisionPoint.x, collisionPoint.y, red);
+				w->DrawLine(this->x, this->y, collisionPoint.x, collisionPoint.y, red);
+				colliderCount++;
+				std::cout << "COLLIDER ";
 			}
 		}
+		std::cout << "#" << i << ": " << collisionPoint.x << ", " << collisionPoint.y << std::endl <<
+		"LineHeight: " << p->faces.at(i).b->y << ", " << p->faces.at(i).a->y << std::endl;
 	}
 	std::cout << "COLLISIONS: " << colliderCount << std::endl;
 	return !(colliderCount % 2 == 0);
