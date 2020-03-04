@@ -57,12 +57,14 @@ int main() {
 		primWin.Update();
 		primFPS.EndFrame();
 
+		ast->Rotate(1 * primFPS.GetFrameTime());
+
 
 		primIn.Update();
 		primGame.Update(&primIn);
 		mouse[1].x = primIn.mouseX;
 		mouse[1].y = primIn.mouseY;
-		std::cout << "INPOLYGON: " << mouse[1].InPolygon(&(ast->shape), &primWin) << std::endl;
+		std::cout << "INPOLYGON: " << mouse[1].InPolygon(&(ast->shape)) << std::endl;
 		std::cout << mouse[1].x << ", " << mouse[1].y << std::endl;
 	}
 
