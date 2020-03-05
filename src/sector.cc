@@ -18,6 +18,7 @@ void cVertex::PlaceAt(const double nx, const double ny) {
 }
 
 bool cVertex::InPolygon(cPolygon *p) {
+	// Get quad of shape
 	double yMin = p->faces.at(0).a->y, yMax = p->faces.at(0).a->y;
 	double xMin = p->faces.at(0).a->x, xMax = p->faces.at(0).a->x;
 	for(int i = 0; i < p->faceCount; i++) {
@@ -27,9 +28,18 @@ bool cVertex::InPolygon(cPolygon *p) {
 		if(p->faces.at(i).a->y > yMax) { yMax = p->faces.at(i).a->y;}
 	}
 
+	// If point isn't even in the quad then throw it out
 	if(this->x < xMin || this->x > xMax || this->y < yMin || this->y > yMax) {
 		return false;
 	}
+
+	// Otherwise move to "raycast" collision detection
+	/* Basically:
+	 * Find intersection of testLine (a segment extending from the testing
+	 * point coords all the way to the xMax value of the polygon)
+	 * Then, if point is within the checked line vertical bounaries and it is 
+	 * to the right of the point, count it as a proper "collision."
+	 */
 
 	cVertex *endPoint = new cVertex;
 	endPoint->PlaceAt(xMax, this->y);
@@ -39,15 +49,22 @@ bool cVertex::InPolygon(cPolygon *p) {
 
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
+		// This is the y boundary check
 		if((p->faces.at(i).a->y >= p->faces.at(i).b->y &&
 		   collisionPoint.y >= p->faces.at(i).b->y && collisionPoint.y <= p->faces.at(i).a->y) ||
 		   (p->faces.at(i).a->y <= p->faces.at(i).b->y && 
 		   collisionPoint.y <= p->faces.at(i).b->y && collisionPoint.y >= p->faces.at(i).a->y)) {
+			// This is the "to the right" check
 	   		if(this->x <= collisionPoint.x) {
 				colliderCount++;
 			}
 		}
 	}
+	
+	/* If collisions are even, then it's outside of the polygon, otherwise
+	 * it resides inside
+	 */
+	
 	return !(colliderCount % 2 == 0);
 }
 
