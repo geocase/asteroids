@@ -29,6 +29,8 @@ public:
 
 	cVertex GetPointAt(double ratio);
 	cVertex GetIntersection(cSegment *s);
+
+	void Rotate(const double ax, const double ay, const double r);
 };
 
 class cPolygon  {
@@ -46,5 +48,6 @@ public:
 	uint32_t lineDefCount = 0;
 	void AddSegment( const cSegment *l);
 	void BuildFromVertexArray(cVertex *p, uint32_t nc);
+
 };
 #endif

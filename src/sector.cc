@@ -106,6 +106,11 @@ cVertex cSegment::GetIntersection(cSegment *s) {
 	return t;
 }
 
+void cSegment::Rotate(const double ax, const double ay, const double r) {
+	a->Rotate(ax, ay, r);
+	b->Rotate(ax, ay, r);
+}
+
 void cPolygon::AddFace(const cSegment *l) {
 	this->faces.push_back(*l);	
 	this->faceCount++;
