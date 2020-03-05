@@ -89,20 +89,19 @@ cVertex cSegment::GetPointAt(double ratio) {
 }
 
 cVertex cSegment::GetIntersection(cSegment *s) {
-	cMiscMath m;
 	cVertex t;
 	double x1 = this->a->x, y1 = this->a->y;
 	double x2 = this->b->x, y2 = this->b->y;
 	double x3 = s->a->x, y3 = s->a->y;
 	double x4 = s->b->x, y4 = s->b->y;
-	t.x = m.Determination(m.Determination(x1, y1, x2, y2), m.Determination(x1, 1, x2, 1), 
-	                      m.Determination(x3, y3, x4, y4), m.Determination(x3, 1, x4, 1)) / 
-	      m.Determination(m.Determination(x1, 1, x2, 1), m.Determination(y1, 1, y2, 1),
-	                      m.Determination(x3, 1, x4, 1), m.Determination(y3, 1, y4, 1));
-	t.y = m.Determination(m.Determination(x1, y1, x2, y2), m.Determination(y1, 1, y2, 1),
-	                      m.Determination(x3, y3, x4, y4), m.Determination(y3, 1, y4, 1)) /
-	      m.Determination(m.Determination(x1, 1, x2, 1), m.Determination(y1, 1, y2, 1),
-	                      m.Determination(x3, 1, x4, 1), m.Determination(y3, 1, y4, 1));
+	t.x = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(x1, 1, x2, 1), 
+	                      Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(x3, 1, x4, 1)) / 
+	      Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
+	                      Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
+	t.y = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(y1, 1, y2, 1),
+	                      Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(y3, 1, y4, 1)) /
+	      Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
+	                      Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
 	return t;
 }
 
