@@ -19,9 +19,7 @@ void cEntity::PlaceAt(const double x, const double y) {
 
 void cEntity::Rotate(const double r) {
 	this->angle += r;
-	for(int i = 0; i < this->nodeCount; i++) {
-		this->nodes[i].Rotate(this->xPos, this->yPos, r);
-	}
+	this->shape.Rotate(this->xPos, this->yPos, r);
 }
 
 void cEntity::Translate(double x, double y) {
