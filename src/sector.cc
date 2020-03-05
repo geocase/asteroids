@@ -126,6 +126,12 @@ void cPolygon::BuildFromVertexArray(cVertex *p, uint32_t nc) {
 	}
 }
 
+void cPolygon::Rotate(const double ax, const double ay, const double r) {
+	for(int i = 0; i < this->faceCount; i++) {
+		this->faces.at(i).Rotate(ax, ay, r);
+	}
+}
+
 void cPath::AddSegment(const cSegment *l) {
 	this->lineDefs.push_back(*l);
 	this->lineDefCount++;

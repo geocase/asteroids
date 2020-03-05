@@ -40,6 +40,8 @@ public:
 
 	void AddFace(const cSegment *l);
 	void BuildFromVertexArray(cVertex *p, uint32_t nc);
+
+	void Rotate(const double ax, const double ay, const double r);
 };
 
 class cPath {
