@@ -51,7 +51,7 @@ cEntityPlayer::cEntityPlayer() {
 cEntityAsteroid::cEntityAsteroid() {
 	this->xPos = 100;
 	this->yPos = 100;
-	this->GenerateRandomShape(10, 50);
+	this->GenerateRandomShape(pow(this->size - 1, 2), pow(this->size, 2));
 }
 
 void cEntityAsteroid::GenerateRandomShape(uint32_t min, uint32_t max) {

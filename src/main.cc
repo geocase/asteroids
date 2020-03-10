@@ -37,7 +37,7 @@ int main() {
 	while(primGame.running) {
 		primFPS.StartFrame();
 		for(int i = 0; i < 10; i++) {
-			if(1) {
+			if(primGame.player.shape.PartiallyInPolygon(&(ast[i].shape))) {
 				primWin.DrawPolygon(&(ast[i].shape), red);
 			} else {
 				primWin.DrawPolygon(&(ast[i].shape), col);
