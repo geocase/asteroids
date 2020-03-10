@@ -13,24 +13,7 @@ int main() {
 	cWindow primWin;
 	cInput primIn;
 	cGame primGame;
-
-	cVertex *points = new cVertex[NODES];
-	points[0].PlaceAt(primWin.winx / 2, primWin.winy / 2 - 200);
-	points[1].PlaceAt(primWin.winx / 2 - 10, primWin.winy / 2 - 400);
-	points[2].PlaceAt(primWin.winx / 2 + 300, primWin.winy / 2 - 300);
-	points[3].PlaceAt(primWin.winx / 2 + 300, primWin.winy / 2);
-	points[4].PlaceAt(primWin.winx / 2, primWin.winy / 2);
-	points[5].PlaceAt(primWin.winx / 2 + 250, primWin.winy / 2 - 20);
-	points[6].PlaceAt(primWin.winx / 2, primWin.winy / 2 - 300);
-
-	cVertex *mouse = new cVertex[2];
-	mouse[0].PlaceAt(primWin.winx / 2 - 300, primWin.winy / 2);
-
-	cPolygon *test = new cPolygon;
-	test->BuildFromVertexArray(points, 7);
-
-	cSegment *mouseLine = new cSegment(&mouse[0], &mouse[1]);
-	cSegment *testLine = new cSegment(&points[1], &points[2]);
+	
 	sColor_t col;
 	col.r = 255;
 	col.g = 255;
@@ -50,18 +33,17 @@ int main() {
 	for(int i = 0; i < 10; i++) {
 		ast[i].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
 	}
-	primGame.player.PlaceAt(200, 200);
 	
 	while(primGame.running) {
 		primFPS.StartFrame();
 		for(int i = 0; i < 10; i++) {
-			if(mouse[1].InPolygon(&(ast[i].shape))) {
+			if(1) {
 				primWin.DrawPolygon(&(ast[i].shape), red);
 			} else {
 				primWin.DrawPolygon(&(ast[i].shape), col);
 			}
 		}
-		primWin.DrawLine(mouse[0].x, mouse[0].y, mouse[1].x, mouse[1].y, col);
+		primWin.DrawPolygon(&(primGame.player.shape), col);
 		primWin.Update();
 		primFPS.EndFrame();
 
@@ -69,12 +51,9 @@ int main() {
 			ast[i].Rotate(1 * primFPS.GetFrameTime());
 		}
 
-
+		primGame.player.PlaceAt(primIn.mouseX, primIn.mouseY);
 		primIn.Update();
 		primGame.Update(&primIn);
-		mouse[1].x = primIn.mouseX;
-		mouse[1].y = primIn.mouseY;
-		std::cout << mouse[1].x << ", " << mouse[1].y << std::endl;
 		std::cout << "Frametime: " << primFPS.GetFrameTime() << std::endl;
 	}
 
