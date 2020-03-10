@@ -125,6 +125,25 @@ void cPolygon::BuildFromVertexArray(cVertex *p, uint32_t nc) {
 	}
 }
 
+bool cPolygon::CompletelyInPolygon(cPolygon *p) {
+	for(int i = 0; i < this->faceCount; i++) {
+		if(!(this->faces.at(i).a->InPolygon(p)) || !(this->faces.at(i).b->InPolygon(p))) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool cPolygon::PartiallyInPolygon(cPolygon *p) {
+	for(int i = 0; i < this->faceCount; i++) {
+		if((this->faces.at(i).a->InPolygon(p)) || (this->faces.at(i).b->InPolygon(p))) {
+			return true;
+		}
+	}
+
+	return false;
+}
 void cPolygon::Rotate(const double ax, const double ay, const double r) {
 	for(int i = 0; i < this->faceCount; i++) {
 		this->faces.at(i).Rotate(ax, ay, r);

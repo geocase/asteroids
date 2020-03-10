@@ -40,7 +40,8 @@ public:
 
 	void AddFace(const cSegment *l);
 	void BuildFromVertexArray(cVertex *p, uint32_t nc);
-
+	bool CompletelyInPolygon(cPolygon *p);
+	bool PartiallyInPolygon(cPolygon *p);
 	void Rotate(const double ax, const double ay, const double r);
 };
 
