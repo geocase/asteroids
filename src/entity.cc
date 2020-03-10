@@ -70,7 +70,10 @@ void cEntityAsteroid::GenerateRandomShape(uint32_t min, uint32_t max) {
 }
 
 void cEntityAsteroid::SetSize(const uint32_t s) {
-	if(s < 0) return;
+	if(s < 3){
+		this->dead = true;
+		return;
+	}
 
 	this->size = s;
 	this->GenerateRandomShape(pow(this->size - 1, 2), pow(this->size, 2));

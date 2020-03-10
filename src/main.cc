@@ -37,11 +37,13 @@ int main() {
 	while(primGame.running) {
 		primFPS.StartFrame();
 		for(int i = 0; i < 10; i++) {
-			if(primGame.player.shape.PartiallyInPolygon(&(ast[i].shape))) {
-				primWin.DrawPolygon(&(ast[i].shape), red);
-				ast[i].SetSize(ast[i].size - 1);
-			} else {
-				primWin.DrawPolygon(&(ast[i].shape), col);
+			if(!ast[i].dead) {
+				if(primGame.player.shape.PartiallyInPolygon(&(ast[i].shape))) {
+					primWin.DrawPolygon(&(ast[i].shape), red);
+					ast[i].SetSize(ast[i].size - 1);
+				} else {
+					primWin.DrawPolygon(&(ast[i].shape), col);
+				}
 			}
 		}
 		primWin.DrawPolygon(&(primGame.player.shape), col);
@@ -49,7 +51,13 @@ int main() {
 		primFPS.EndFrame();
 
 		for(int i = 0; i < 10; i++) {
-			ast[i].Rotate(1 * primFPS.GetFrameTime());
+			if(!ast[i].dead) {
+				ast[i].Rotate(1 * primFPS.GetFrameTime());
+			} else {
+				ast[i].dead = false;
+				ast[i].SetSize(7);
+				ast[i].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
+			}
 		}
 
 		primGame.player.PlaceAt(primIn.mouseX, primIn.mouseY);
