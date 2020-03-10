@@ -28,7 +28,9 @@ public:
 
 class cEntityAsteroid : public cEntity {
 public:
-	uint32_t size = 7;
+	const uint32_t minimumSize = 4;
+	const uint32_t maximumSize = 7;
+	uint32_t size = maximumSize;
 	bool dead = false;
 	bool shapeGenerated = false;
 	cEntityAsteroid();

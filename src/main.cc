@@ -55,7 +55,7 @@ int main() {
 				ast[i].Rotate(1 * primFPS.GetFrameTime());
 			} else {
 				ast[i].dead = false;
-				ast[i].SetSize(7);
+				ast[i].SetSize(ast[i].maximumSize);
 				ast[i].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
 			}
 		}
