@@ -55,12 +55,23 @@ cEntityAsteroid::cEntityAsteroid() {
 }
 
 void cEntityAsteroid::GenerateRandomShape(uint32_t min, uint32_t max) {
-	this->nodeCount = 10;
-	this->nodes = new cVertex[nodeCount];
-
+	if(!this->shapeGenerated) {
+		this->nodeCount = 10;
+		this->nodes = new cVertex[nodeCount];
+	}
 	for(int i = 0; i < nodeCount; i++) {
 		this->nodes[i].PlaceAt(this->xPos + (min + rand() % max), yPos);
 		this->nodes[i].Rotate(this->xPos, this->yPos, .62831853071 * i);
 	}
-	this->shape.BuildFromVertexArray(this->nodes, this->nodeCount);
+	if(!this->shapeGenerated) {
+		this->shape.BuildFromVertexArray(this->nodes, this->nodeCount);
+	}
+	this->shapeGenerated = true;
+}
+
+void cEntityAsteroid::SetSize(const uint32_t s) {
+	if(s < 0) return;
+
+	this->size = s;
+	this->GenerateRandomShape(pow(this->size - 1, 2), pow(this->size, 2));
 }

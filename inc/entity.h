@@ -28,8 +28,10 @@ public:
 
 class cEntityAsteroid : public cEntity {
 public:
-	uint32_t size = 5;
+	uint32_t size = 7;
+	bool shapeGenerated = false;
 	cEntityAsteroid();
 	void GenerateRandomShape(uint32_t min, uint32_t max);
+	void SetSize(const uint32_t s);
 };
 #endif

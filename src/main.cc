@@ -39,6 +39,7 @@ int main() {
 		for(int i = 0; i < 10; i++) {
 			if(primGame.player.shape.PartiallyInPolygon(&(ast[i].shape))) {
 				primWin.DrawPolygon(&(ast[i].shape), red);
+				ast[i].SetSize(ast[i].size - 1);
 			} else {
 				primWin.DrawPolygon(&(ast[i].shape), col);
 			}
