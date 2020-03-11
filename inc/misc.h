@@ -2,7 +2,11 @@
 #define MISC_H
 
 namespace Misc {
-	double Determinant(double a, double b, double c, double d) {
+	typedef struct {
+		double x, y;
+	} Vector2_t;
+	
+	inline double Determinant(double a, double b, double c, double d) {
 		return (a * d) - (b * c);
 	}
 }
