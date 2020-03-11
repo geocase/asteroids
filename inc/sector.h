@@ -2,19 +2,17 @@
 #define SECTOR_H
 
 #include <vector>
+#include "misc.h"
 
 class cVertex;
 class cSegment;
 class cPolygon;
 
-#include "window.h"
-
 class cPath;
 
 class cVertex {
 public:
-	double x = 0, y = 0;
-	
+	Misc::Vector2_t position;
 	void Rotate(const double ax, const double ay, const double r);
 	void PlaceAt(const double nx, const double ny);
 	bool InPolygon(cPolygon *p);	

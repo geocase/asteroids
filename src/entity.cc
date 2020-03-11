@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 
 #include "entity.h"
 #include "sector.h"
@@ -7,8 +8,8 @@ void cEntity::PlaceAt(const double x, const double y) {
 	double yDiff = 0;
 	double xDiff = 0;
 	for(int i = 0; i < this->nodeCount; i++) {
-		yDiff = this->nodes[i].y - this->position.y;
-		xDiff = this->nodes[i].x - this->position.x;
+		yDiff = this->nodes[i].position.y - this->position.y;
+		xDiff = this->nodes[i].position.x - this->position.x;
 		this->nodes[i].PlaceAt(x + xDiff, y + yDiff);
 	}
 
@@ -26,8 +27,8 @@ void cEntity::Translate(double x, double y) {
 	this->position.x += x;
 	this->position.y += y;
 	for(int i = 0; i < this->nodeCount; i++) {
-		this->nodes[i].x += x;
-		this->nodes[i].y += y;		
+		this->nodes[i].position.x += x;
+		this->nodes[i].position.y += y;		
 	}
 }
 

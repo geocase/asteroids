@@ -39,7 +39,7 @@ void cWindow::DrawPolygon(cPolygon *p, sColor_t col) {
 	for(int i = 0; i < p->faceCount; i++) {
 		tempA = *(p->faces.at(i).a);
 		tempB = *(p->faces.at(i).b);
-		this->DrawLine(tempA.x, tempA.y, tempB.x, tempB.y, col);
+		this->DrawLine(tempA.position.x, tempA.position.y, tempB.position.x, tempB.position.y, col);
 	}
 }
 

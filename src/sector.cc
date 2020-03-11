@@ -6,30 +6,30 @@
 #include "window.h"
 
 void cVertex::Rotate(const double ax, const double ay, const double r) {
-	double nx = (this->x - ax) * std::cos(r) - (this->y - ay) * std::sin(r);
-	double ny = (this->y - ay) * std::cos(r) + (this->x - ax) * std::sin(r);
+	double nx = (this->position.x - ax) * std::cos(r) - (this->position.y - ay) * std::sin(r);
+	double ny = (this->position.y - ay) * std::cos(r) + (this->position.x - ax) * std::sin(r);
 
 	this->PlaceAt(nx + ax, ny + ay);
 }
 
 void cVertex::PlaceAt(const double nx, const double ny) {
-	this->x = nx;
-	this->y = ny;
+	this->position.x = nx;
+	this->position.y = ny;
 }
 
 bool cVertex::InPolygon(cPolygon *p) {
 	// Get quad of shape
-	double yMin = p->faces.at(0).a->y, yMax = p->faces.at(0).a->y;
-	double xMin = p->faces.at(0).a->x, xMax = p->faces.at(0).a->x;
+	double yMin = p->faces.at(0).a->position.y, yMax = p->faces.at(0).a->position.y;
+	double xMin = p->faces.at(0).a->position.x, xMax = p->faces.at(0).a->position.x;
 	for(int i = 0; i < p->faceCount; i++) {
-		if(p->faces.at(i).a->x < xMin) { xMin = p->faces.at(i).a->x;}
-		if(p->faces.at(i).a->x > xMax) { xMax = p->faces.at(i).a->x;}
-		if(p->faces.at(i).a->y < yMin) { yMin = p->faces.at(i).a->y;}
-		if(p->faces.at(i).a->y > yMax) { yMax = p->faces.at(i).a->y;}
+		if(p->faces.at(i).a->position.x < xMin) { xMin = p->faces.at(i).a->position.x;}
+		if(p->faces.at(i).a->position.x > xMax) { xMax = p->faces.at(i).a->position.x;}
+		if(p->faces.at(i).a->position.y < yMin) { yMin = p->faces.at(i).a->position.y;}
+		if(p->faces.at(i).a->position.y > yMax) { yMax = p->faces.at(i).a->position.y;}
 	}
 
 	// If point isn't even in the quad then throw it out
-	if(this->x < xMin || this->x > xMax || this->y < yMin || this->y > yMax) {
+	if(this->position.x < xMin || this->position.x > xMax || this->position.y < yMin || this->position.y > yMax) {
 		return false;
 	}
 
@@ -42,7 +42,7 @@ bool cVertex::InPolygon(cPolygon *p) {
 	 */
 
 	cVertex *endPoint = new cVertex;
-	endPoint->PlaceAt(xMax, this->y);
+	endPoint->PlaceAt(xMax, this->position.y);
 	cSegment *testLine = new cSegment(this, endPoint);
 	uint32_t colliderCount = 0;
 	cVertex collisionPoint;
@@ -50,12 +50,12 @@ bool cVertex::InPolygon(cPolygon *p) {
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
 		// This is the y boundary check
-		if((p->faces.at(i).a->y >= p->faces.at(i).b->y &&
-		   collisionPoint.y >= p->faces.at(i).b->y && collisionPoint.y <= p->faces.at(i).a->y) ||
-		   (p->faces.at(i).a->y <= p->faces.at(i).b->y && 
-		   collisionPoint.y <= p->faces.at(i).b->y && collisionPoint.y >= p->faces.at(i).a->y)) {
+		if((p->faces.at(i).a->position.y >= p->faces.at(i).b->position.y &&
+		   collisionPoint.position.y >= p->faces.at(i).b->position.y && collisionPoint.position.y <= p->faces.at(i).a->position.y) ||
+		   (p->faces.at(i).a->position.y <= p->faces.at(i).b->position.y && 
+		   collisionPoint.position.y <= p->faces.at(i).b->position.y && collisionPoint.position.y >= p->faces.at(i).a->position.y)) {
 			// This is the "to the right" check
-	   		if(this->x <= collisionPoint.x) {
+	   		if(this->position.x <= collisionPoint.position.x) {
 				colliderCount++;
 			}
 		}
@@ -69,10 +69,10 @@ bool cVertex::InPolygon(cPolygon *p) {
 }
 
 cSegment::cSegment(double ax, double ay, double bx, double by) {
-	this->a->x = ax;
-	this->a->y = ay;
-	this->b->x = bx;
-	this->b->y = by;
+	this->a->position.x = ax;
+	this->a->position.y = ay;
+	this->b->position.x = bx;
+	this->b->position.y = by;
 }
 
 cSegment::cSegment(cVertex *na, cVertex *nb) {
@@ -82,23 +82,23 @@ cSegment::cSegment(cVertex *na, cVertex *nb) {
 
 cVertex cSegment::GetPointAt(double ratio) {
 	cVertex temp;
-	temp.x = (this->a->x - this->b->x) * ratio + this->b->x;
-	temp.y = (this->a->y - this->b->y) * ratio + this->b->y;
+	temp.position.x = (this->a->position.x - this->b->position.x) * ratio + this->b->position.x;
+	temp.position.y = (this->a->position.y - this->b->position.y) * ratio + this->b->position.y;
 
 	return temp;
 }
 
 cVertex cSegment::GetIntersection(cSegment *s) {
 	cVertex t;
-	double x1 = this->a->x, y1 = this->a->y;
-	double x2 = this->b->x, y2 = this->b->y;
-	double x3 = s->a->x, y3 = s->a->y;
-	double x4 = s->b->x, y4 = s->b->y;
-	t.x = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(x1, 1, x2, 1), 
+	double x1 = this->a->position.x, y1 = this->a->position.y;
+	double x2 = this->b->position.x, y2 = this->b->position.y;
+	double x3 = s->a->position.x, y3 = s->a->position.y;
+	double x4 = s->b->position.x, y4 = s->b->position.y;
+	t.position.x = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(x1, 1, x2, 1), 
 	                      Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(x3, 1, x4, 1)) / 
 	      Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
 	                      Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
-	t.y = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(y1, 1, y2, 1),
+	t.position.y = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(y1, 1, y2, 1),
 	                      Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(y3, 1, y4, 1)) /
 	      Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
 	                      Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
