@@ -97,13 +97,14 @@ cVertex cSegment::GetIntersection(cSegment *s) {
 	double x3 = s->a->position.x, y3 = s->a->position.y;
 	double x4 = s->b->position.x, y4 = s->b->position.y;
 	t.position.x = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(x1, 1, x2, 1), 
-	                      Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(x3, 1, x4, 1)) / 
-	      Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
-	                      Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
+	                                 Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(x3, 1, x4, 1)) / 
+	               Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
+	                                 Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
+
 	t.position.y = Misc::Determinant(Misc::Determinant(x1, y1, x2, y2), Misc::Determinant(y1, 1, y2, 1),
-	                      Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(y3, 1, y4, 1)) /
-	      Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
-	                      Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
+	                                 Misc::Determinant(x3, y3, x4, y4), Misc::Determinant(y3, 1, y4, 1)) /
+	               Misc::Determinant(Misc::Determinant(x1, 1, x2, 1), Misc::Determinant(y1, 1, y2, 1),
+	                                 Misc::Determinant(x3, 1, x4, 1), Misc::Determinant(y3, 1, y4, 1));
 	return t;
 }
 
