@@ -50,10 +50,12 @@ bool cVertex::InPolygon(cPolygon *p) {
 	for(int i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
 		// This is the y boundary check
-		if((p->faces.at(i).a->position.y >= p->faces.at(i).b->position.y &&
-		   collisionPoint.position.y >= p->faces.at(i).b->position.y && collisionPoint.position.y <= p->faces.at(i).a->position.y) ||
-		   (p->faces.at(i).a->position.y <= p->faces.at(i).b->position.y && 
-		   collisionPoint.position.y <= p->faces.at(i).b->position.y && collisionPoint.position.y >= p->faces.at(i).a->position.y)) {
+		if(((p->faces.at(i).a->position.y >= p->faces.at(i).b->position.y) &&
+		    (collisionPoint.position.y >= p->faces.at(i).b->position.y) &&
+			(collisionPoint.position.y <= p->faces.at(i).a->position.y)) ||
+		   ((p->faces.at(i).a->position.y <= p->faces.at(i).b->position.y) &&
+			(collisionPoint.position.y <= p->faces.at(i).b->position.y) &&
+		    (collisionPoint.position.y >= p->faces.at(i).a->position.y))) {
 			// This is the "to the right" check
 	   		if(this->position.x <= collisionPoint.position.x) {
 				colliderCount++;
