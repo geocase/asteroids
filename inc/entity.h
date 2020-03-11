@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include "sector.h"
+#include "misc.h"
 
 class cEntity;
 class cEntityPlayer;
@@ -13,7 +14,7 @@ public:
 	cVertex *nodes;
 	uint32_t nodeCount;
 
-	double xPos, yPos;
+	Misc::Vector2_t position;
 	double angle;
 	void PlaceAt(const double x, const double y);
 	void Rotate(const double r);
