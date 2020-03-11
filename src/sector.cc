@@ -71,6 +71,8 @@ bool cVertex::InPolygon(cPolygon *p) {
 }
 
 cSegment::cSegment(double ax, double ay, double bx, double by) {
+	this->a = new cVertex;
+	this->b = new cVertex;
 	this->a->position.x = ax;
 	this->a->position.y = ay;
 	this->b->position.x = bx;
