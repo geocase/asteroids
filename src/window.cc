@@ -36,7 +36,7 @@ void cWindow::DrawPixel(int x, int y, sColor_t c) {
 void cWindow::DrawPolygon(cPolygon *p, sColor_t col) {
 	cVertex tempA;
 	cVertex tempB;
-	for(int i = 0; i < p->faceCount; i++) {
+	for(uint32_t i = 0; i < p->faceCount; i++) {
 		tempA = *(p->faces.at(i).a);
 		tempB = *(p->faces.at(i).b);
 		this->DrawLine(tempA.position.x, tempA.position.y, tempB.position.x, tempB.position.y, col);
