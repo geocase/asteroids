@@ -21,7 +21,7 @@ bool cVertex::InPolygon(cPolygon *p) {
 	// Get quad of shape
 	double yMin = p->faces.at(0).a->position.y, yMax = p->faces.at(0).a->position.y;
 	double xMin = p->faces.at(0).a->position.x, xMax = p->faces.at(0).a->position.x;
-	for(int i = 0; i < p->faceCount; i++) {
+	for(uint32_t i = 0; i < p->faceCount; i++) {
 		if(p->faces.at(i).a->position.x < xMin) { xMin = p->faces.at(i).a->position.x;}
 		if(p->faces.at(i).a->position.x > xMax) { xMax = p->faces.at(i).a->position.x;}
 		if(p->faces.at(i).a->position.y < yMin) { yMin = p->faces.at(i).a->position.y;}
@@ -47,7 +47,7 @@ bool cVertex::InPolygon(cPolygon *p) {
 	uint32_t colliderCount = 0;
 	cVertex collisionPoint;
 
-	for(int i = 0; i < p->faceCount; i++) {
+	for(uint32_t i = 0; i < p->faceCount; i++) {
 		collisionPoint = testLine->GetIntersection(&(p->faces.at(i))); 
 		// This is the y boundary check
 		if(((p->faces.at(i).a->position.y >= p->faces.at(i).b->position.y) &&
@@ -121,7 +121,7 @@ void cPolygon::AddFace(const cSegment *l) {
 }
 
 void cPolygon::BuildFromVertexArray(cVertex *p, uint32_t nc) {
-	for(int i = 0; i < nc; i++) {
+	for(uint32_t i = 0; i < nc; i++) {
 		if(i + 1 > nc - 1) {
 			this->AddFace(new cSegment(&p[i], &p[0]));
 		} else {
@@ -131,7 +131,7 @@ void cPolygon::BuildFromVertexArray(cVertex *p, uint32_t nc) {
 }
 
 bool cPolygon::CompletelyInPolygon(cPolygon *p) {
-	for(int i = 0; i < this->faceCount; i++) {
+	for(uint32_t i = 0; i < this->faceCount; i++) {
 		if(!(this->faces.at(i).a->InPolygon(p)) || !(this->faces.at(i).b->InPolygon(p))) {
 			return false;
 		}
@@ -141,7 +141,7 @@ bool cPolygon::CompletelyInPolygon(cPolygon *p) {
 }
 
 bool cPolygon::PartiallyInPolygon(cPolygon *p) {
-	for(int i = 0; i < this->faceCount; i++) {
+	for(uint32_t i = 0; i < this->faceCount; i++) {
 		if((this->faces.at(i).a->InPolygon(p)) || (this->faces.at(i).b->InPolygon(p))) {
 			return true;
 		}
@@ -150,7 +150,7 @@ bool cPolygon::PartiallyInPolygon(cPolygon *p) {
 	return false;
 }
 void cPolygon::Rotate(const double ax, const double ay, const double r) {
-	for(int i = 0; i < this->faceCount; i++) {
+	for(uint32_t i = 0; i < this->faceCount; i++) {
 		this->faces.at(i).Rotate(ax, ay, r);
 	}
 }
@@ -161,7 +161,7 @@ void cPath::AddSegment(const cSegment *l) {
 }
 
 void cPath::BuildFromVertexArray(cVertex *p, uint32_t nc) {
-	for(int i = 0; i < nc - 1; i++) {
+	for(uint32_t i = 0; i < nc - 1; i++) {
 		this->AddSegment(new cSegment(&p[i], &p[i+1]));
 	}
 }
