@@ -14,8 +14,9 @@ public:
 	cVertex *nodes;
 	uint32_t nodeCount;
 
-	Misc::Vector2_t position;
-	double angle;
+	Misc::Vector3_t position; // Angle included, z
+	Misc::Vector3_t velocity;
+
 	void PlaceAt(const double x, const double y);
 	void Rotate(const double r);
 	void Translate(double x, double y);

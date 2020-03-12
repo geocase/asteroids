@@ -7,7 +7,7 @@
 void cEntity::PlaceAt(const double x, const double y) {	
 	double yDiff = 0;
 	double xDiff = 0;
-	for(int i = 0; i < this->nodeCount; i++) {
+	for(uint32_t i = 0; i < this->nodeCount; i++) {
 		yDiff = this->nodes[i].position.y - this->position.y;
 		xDiff = this->nodes[i].position.x - this->position.x;
 		this->nodes[i].PlaceAt(x + xDiff, y + yDiff);
@@ -19,14 +19,14 @@ void cEntity::PlaceAt(const double x, const double y) {
 }
 
 void cEntity::Rotate(const double r) {
-	this->angle += r;
+	this->position.z += r;
 	this->shape.Rotate(this->position.x, this->position.y, r);
 }
 
 void cEntity::Translate(double x, double y) {
 	this->position.x += x;
 	this->position.y += y;
-	for(int i = 0; i < this->nodeCount; i++) {
+	for(uint32_t i = 0; i < this->nodeCount; i++) {
 		this->nodes[i].position.x += x;
 		this->nodes[i].position.y += y;		
 	}
@@ -37,7 +37,7 @@ cEntityPlayer::cEntityPlayer() {
 	this->nodes = new cVertex[this->nodeCount];
 	this->position.x = 160;
 	this->position.y = 100;
-	this->angle = 0;
+	this->position.z = 0;
 
 	this->nodes[0].PlaceAt(this->position.x + this->shipScale, this->position.y);
 	this->nodes[1].PlaceAt(this->position.x + this->shipScale, this->position.y);
@@ -60,7 +60,7 @@ void cEntityAsteroid::GenerateRandomShape(uint32_t min, uint32_t max) {
 		this->nodeCount = 10;
 		this->nodes = new cVertex[nodeCount];
 	}
-	for(int i = 0; i < nodeCount; i++) {
+	for(uint32_t i = 0; i < nodeCount; i++) {
 		this->nodes[i].PlaceAt(this->position.x + (min + rand() % max), this->position.y);
 		this->nodes[i].Rotate(this->position.x, this->position.y, .62831853071 * i);
 	}
