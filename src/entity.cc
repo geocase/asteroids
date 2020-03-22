@@ -20,7 +20,7 @@ void cEntity::PlaceAt(const double x, const double y) {
 
 void cEntity::Rotate(const double r) {
 	this->position.z += r;
-	this->shape.Rotate(this->position.x, this->position.y, r);
+	this->shape.Rotate(this->position.x, this->position.y, r / 2);
 }
 
 void cEntity::Translate(double x, double y) {
