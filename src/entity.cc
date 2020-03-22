@@ -28,8 +28,17 @@ void cEntity::Translate(double x, double y) {
 	this->position.y += y;
 	for(uint32_t i = 0; i < this->nodeCount; i++) {
 		this->nodes[i].position.x += x;
-		this->nodes[i].position.y += y;		
+		this->nodes[i].position.y += y;
 	}
+}
+
+void cEntity::ThrustForward() {
+	this->velocity.y = sin(this->position.z) * this->speed;
+	this->velocity.x = cos(this->position.z) * this->speed;
+}
+
+void cEntity::Update(double time) {
+	this->Translate(this->velocity.x * time, this->velocity.y * time);
 }
 
 cEntityPlayer::cEntityPlayer() {

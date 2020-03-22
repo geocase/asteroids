@@ -14,12 +14,16 @@ public:
 	cVertex *nodes;
 	uint32_t nodeCount;
 
+	uint32_t speed;
+
 	Misc::Vector3_t position; // Angle included, z
 	Misc::Vector3_t velocity;
 
 	void PlaceAt(const double x, const double y);
 	void Rotate(const double r);
 	void Translate(double x, double y);
+	void ThrustForward();
+	void Update(double time);
 };
 
 class cEntityPlayer : public cEntity {

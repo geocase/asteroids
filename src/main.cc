@@ -32,8 +32,10 @@ int main() {
 	cEntityAsteroid *ast = new cEntityAsteroid[10];
 	for(int i = 0; i < 10; i++) {
 		ast[i].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
+		ast[i].speed = rand() % 100;
 	}
 	
+	primGame.player.speed = 50;
 	while(primGame.running) {
 		primFPS.StartFrame();
 		for(int i = 0; i < 10; i++) {
@@ -52,7 +54,9 @@ int main() {
 
 		for(int i = 0; i < 10; i++) {
 			if(!ast[i].dead) {
-				ast[i].Rotate(1 * primFPS.GetFrameTime());
+				ast[i].Rotate(.6 * primFPS.GetFrameTime());
+				ast[i].Update(primFPS.GetFrameTime());
+				ast[i].ThrustForward();
 			} else {
 				ast[i].dead = false;
 				ast[i].SetSize(ast[i].maximumSize);
@@ -60,9 +64,14 @@ int main() {
 			}
 		}
 
-		primGame.player.PlaceAt(primIn.mouseX, primIn.mouseY);
+		primGame.player.Rotate(0.349066 * primFPS.GetFrameTime());
+		primGame.player.ThrustForward();
+		primGame.player.Update(primFPS.GetFrameTime());
 		primIn.Update();
+		
 		primGame.Update(&primIn);
+		std::cout << primGame.player.position.x << ", " << primGame.player.position.y << std::endl;
+		std::cout << primGame.player.position.z << std::endl;
 		std::cout << "Frametime: " << primFPS.GetFrameTime() << std::endl;
 	}
 
