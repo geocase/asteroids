@@ -15,7 +15,7 @@ void cGame::Update(cInput *i) {
 
 	switch(i->currentInput) {
 		case FORWARD:
-			this->player.ThrustForward();
+			this->player.ThrustWithAcceleration(this->player.position.z);
 			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, 0, .01);
 			break;
 		case LEFT:
@@ -24,7 +24,7 @@ void cGame::Update(cInput *i) {
 			break;
 		case FORLEFT:
 			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, this->player.rotationSpeed, .01);
-			this->player.ThrustForward();
+			this->player.ThrustWithAcceleration(this->player.position.z);
 			break;
 		case RIGHT:
 			this->player.Slow();
@@ -32,7 +32,7 @@ void cGame::Update(cInput *i) {
 			break;
 		case FORRIGHT:
 			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, -(this->player.rotationSpeed), .01);
-			this->player.ThrustForward();
+			this->player.ThrustWithAcceleration(this->player.position.z);
 			break;
 		default:
 			std::cout << "INPUT TYPE UNHANDLED" << std::endl;

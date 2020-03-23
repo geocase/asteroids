@@ -38,11 +38,11 @@ void cEntity::Translate(double x, double y) {
 	}
 }
 
-void cEntity::ThrustForward() {
+void cEntity::ThrustWithAcceleration(double a) {
 	this->currentSpeed = Misc::DecayTo(this->currentSpeed, this->speed, 1);
 
-	this->velocity.y = sin(this->position.z) * this->currentSpeed; 
-	this->velocity.x = cos(this->position.z) * this->currentSpeed;
+	this->velocity.y = sin(a) * this->currentSpeed; 
+	this->velocity.x = cos(a) * this->currentSpeed;
 }
 
 void cEntity::Update(double time) {

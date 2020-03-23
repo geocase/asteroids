@@ -23,7 +23,7 @@ public:
 	void Rotate(const double r);
 	void Slow();
 	void Translate(double x, double y);
-	void ThrustForward();
+	void ThrustWithAcceleration(double a);
 	void Update(double time);
 };
 

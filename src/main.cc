@@ -33,6 +33,7 @@ int main() {
 	for(int i = 0; i < 10; i++) {
 		ast[i].PlaceAt(rand() % primWin.winx, rand() % primWin.winy);
 		ast[i].speed = rand() % 100;
+		ast[i].velocity.z = (double)((rand() % 628) / 100);
 	}
 	
 	primGame.player.speed = 100;
@@ -56,7 +57,7 @@ int main() {
 			if(!ast[i].dead) {
 				ast[i].Rotate(.6 * primFPS.GetFrameTime());
 				ast[i].Update(primFPS.GetFrameTime());
-				ast[i].ThrustForward();
+				ast[i].ThrustWithAcceleration(ast[i].velocity.z);
 			} else {
 				ast[i].dead = false;
 				ast[i].SetSize(ast[i].maximumSize);
