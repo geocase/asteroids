@@ -2,6 +2,7 @@
 
 #include "entity.h"
 #include "game.h"
+#include "misc.h"
 #include "input.h"
 #include "sector.h"
 
@@ -15,34 +16,30 @@ void cGame::Update(cInput *i) {
 	switch(i->currentInput) {
 		case FORWARD:
 			this->player.ThrustForward();
-			this->player.velocity.z = 0; 
+			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, 0, .01);
 			break;
 		case LEFT:
-			this->player.velocity.x = 0;
-			this->player.velocity.y = 0;
-			this->player.velocity.z = this->player.rotationSpeed;
+			this->player.Slow();
+			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, this->player.rotationSpeed, .01);
 			break;
 		case FORLEFT:
-			this->player.velocity.z = this->player.rotationSpeed;
+			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, this->player.rotationSpeed, .01);
 			this->player.ThrustForward();
 			break;
 		case RIGHT:
-			this->player.velocity.x = 0;
-			this->player.velocity.y = 0;
-			this->player.velocity.z = -(this->player.rotationSpeed);
+			this->player.Slow();
+			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, -(this->player.rotationSpeed), .01);
 			break;
 		case FORRIGHT:
-			this->player.velocity.z = -(this->player.rotationSpeed);
+			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, -(this->player.rotationSpeed), .01);
 			this->player.ThrustForward();
 			break;
 		default:
 			std::cout << "INPUT TYPE UNHANDLED" << std::endl;
 		case NONE:
-			this->player.velocity.x = 0;
-			this->player.velocity.y = 0;
-			this->player.velocity.z = 0;
+			this->player.Slow();
+			this->player.velocity.z = Misc::DecayTo(this->player.velocity.z, 0, .01);
 			break;
-
 	}
 }
 

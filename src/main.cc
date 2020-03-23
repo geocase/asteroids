@@ -35,7 +35,7 @@ int main() {
 		ast[i].speed = rand() % 100;
 	}
 	
-	primGame.player.speed = 50;
+	primGame.player.speed = 100;
 	while(primGame.running) {
 		primFPS.StartFrame();
 		for(int i = 0; i < 10; i++) {

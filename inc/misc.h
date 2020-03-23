@@ -21,5 +21,22 @@ namespace Misc {
 	inline double Determinant(double a, double b, double c, double d) {
 		return (a * d) - (b * c);
 	}
+
+	inline double DecayTo(double start, double to, double increment) {
+		double t;
+		bool neg = false;
+		if(start > to) { t = start - increment; neg = true; }
+		else { t = start + increment; };
+
+		if(neg) {
+			if(t < to) { return to; }
+			else { return t; }
+		} else {
+			if(t > to) { return to; }
+			else { return t; }
+		}
+
+		return start;
+	}
 }
 #endif

@@ -15,12 +15,13 @@ public:
 	uint32_t nodeCount;
 
 	uint32_t speed;
-
+	uint32_t currentSpeed = 0;
 	Misc::Vector3_t position; // Angle included, z
 	Misc::Vector3_t velocity;
 
 	void PlaceAt(const double x, const double y);
 	void Rotate(const double r);
+	void Slow();
 	void Translate(double x, double y);
 	void ThrustForward();
 	void Update(double time);
@@ -29,7 +30,7 @@ public:
 class cEntityPlayer : public cEntity {
 public:
 	uint32_t shipScale = 20;
-	double rotationSpeed = 0.6;
+	double rotationSpeed = 2;
 	cEntityPlayer();
 };
 

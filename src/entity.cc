@@ -23,6 +23,12 @@ void cEntity::Rotate(const double r) {
 	this->shape.Rotate(this->position.x, this->position.y, r / 2);
 }
 
+void cEntity::Slow() {
+	this->currentSpeed = Misc::DecayTo(this->currentSpeed, 0, 1);
+	this->velocity.y = sin(this->position.z) * this->currentSpeed; 
+	this->velocity.x = cos(this->position.z) * this->currentSpeed;
+}
+
 void cEntity::Translate(double x, double y) {
 	this->position.x += x;
 	this->position.y += y;
@@ -33,8 +39,10 @@ void cEntity::Translate(double x, double y) {
 }
 
 void cEntity::ThrustForward() {
-	this->velocity.y = sin(this->position.z) * this->speed;
-	this->velocity.x = cos(this->position.z) * this->speed;
+	this->currentSpeed = Misc::DecayTo(this->currentSpeed, this->speed, 1);
+
+	this->velocity.y = sin(this->position.z) * this->currentSpeed; 
+	this->velocity.x = cos(this->position.z) * this->currentSpeed;
 }
 
 void cEntity::Update(double time) {
