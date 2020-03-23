@@ -13,6 +13,13 @@ void cInput::Update() {
 void cInput::UpdateKeyboard() {
 	const Uint8 *state = SDL_GetKeyboardState(NULL);
 	if(state[SDL_SCANCODE_W]) {
+		if(state[SDL_SCANCODE_A]) {
+			this->currentInput = FORLEFT;
+			return;
+		} else if(state[SDL_SCANCODE_D]) {
+			this->currentInput = FORRIGHT;
+			return;
+		}
 		this->currentInput = FORWARD;
 		return;
 	} else if(state[SDL_SCANCODE_A]) {
