@@ -65,7 +65,6 @@ int main() {
 		}
 
 		primGame.player.Rotate(0.349066 * primFPS.GetFrameTime());
-		primGame.player.ThrustForward();
 		primGame.player.Update(primFPS.GetFrameTime());
 		primIn.Update();
 		

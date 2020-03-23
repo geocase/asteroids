@@ -1,8 +1,11 @@
 #ifndef GAME_H
 #define GAME_H
 
+enum eInputType_t {NONE, FORWARD, BACKWARD, LEFT, RIGHT, INPUTS_MAX};
+
 #include "entity.h"
 #include "input.h"
+
 
 class cGame;
 

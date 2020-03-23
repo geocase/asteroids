@@ -13,6 +13,13 @@ cGame::cGame() {
 
 void cGame::Update(cInput *i) {
 	if(i->windowExit) { this->Quit(); }
+	switch(i->currentInput) {
+		case FORWARD:
+			this->player.ThrustForward();
+			break;
+		default:
+			std::cout << "INPUT TYPE UNHANDLED" << std::endl;
+	}
 }
 
 void cGame::Quit() {
