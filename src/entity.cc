@@ -39,6 +39,7 @@ void cEntity::ThrustForward() {
 
 void cEntity::Update(double time) {
 	this->Translate(this->velocity.x * time, this->velocity.y * time);
+	this->Rotate(this->velocity.z * time);
 }
 
 cEntityPlayer::cEntityPlayer() {
