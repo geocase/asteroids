@@ -15,6 +15,12 @@ void cInput::UpdateKeyboard() {
 	if(state[SDL_SCANCODE_W]) {
 		this->currentInput = FORWARD;
 		return;
+	} else if(state[SDL_SCANCODE_A]) {
+		this->currentInput = LEFT;
+		return;
+	} else if(state[SDL_SCANCODE_D]) {
+		this->currentInput = RIGHT;
+		return;
 	}
 
 	this->currentInput = NONE;

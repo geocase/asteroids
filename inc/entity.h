@@ -29,6 +29,7 @@ public:
 class cEntityPlayer : public cEntity {
 public:
 	uint32_t shipScale = 20;
+	double rotationSpeed = 0.6;
 	cEntityPlayer();
 };
 

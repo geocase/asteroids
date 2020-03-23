@@ -64,11 +64,10 @@ int main() {
 			}
 		}
 
-		primGame.player.velocity.z = 0.349066;
-		primGame.player.Update(primFPS.GetFrameTime());
 		primIn.Update();
-		
 		primGame.Update(&primIn);
+		primGame.player.Update(primFPS.GetFrameTime());
+		
 		std::cout << primGame.player.position.x << ", " << primGame.player.position.y << std::endl;
 		std::cout << primGame.player.position.z << std::endl;
 		std::cout << "Frametime: " << primFPS.GetFrameTime() << std::endl;
